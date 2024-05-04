@@ -10,6 +10,8 @@ df = pd.read_csv(file.name)
 # Pivot your data
 pivot_df = df.pivot_table(index='time_stamp', columns='signal_name', values='value', aggfunc='first')
 
+# Optionally, fill missing values
+pivot_df.ffill()
 file,extension = os.path.splitext(file.name)
 directory = filedialog.askdirectory()
 print(directory+"/"+os.path.basename(file)+"_pivoted.csv")
