@@ -14,5 +14,7 @@ for filename in os.listdir(directory):
     if extension == ".csv":
         df = pd.read_csv(directory+"/"+filename)
         pivot_df = df.pivot_table(index='time_stamp', columns='signal_name', values='value', aggfunc='first')
-        pivot_df.to_csv(output_directory+"/"+file+"_pivoted.csv")
         
+        pivot_df.ffill()
+        pivot_df.to_csv(output_directory+"/"+file+"_pivoted.csv")
+        A
