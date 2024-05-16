@@ -12,9 +12,11 @@ output_directory = filedialog.askdirectory()
 for filename in os.listdir(directory):
     file,extension = os.path.splitext(filename)
     if extension == ".csv":
-        df = pd.read_csv(directory+"/"+filename)
-        pivot_df = df.pivot_table(index='time_stamp', columns='signal_name', values='value', aggfunc='first')
+        print(directory+"/"+filename +": "+ (str)( os.path.getsize(directory+"/"+filename)))
+        if os.path.getsize(directory+"/"+filename) > (300*1000):
+            df = pd.read_csv(directory+"/"+filename)
+            pivot_df = df.pivot_table(index='time_stamp', columns='signal_name', values='value', aggfunc='first')
+            
+            pivot_df.ffill()
+            pivot_df.to_csv(output_directory+"/"+file+"_pivoted.csv")
         
-        pivot_df.ffill()
-        pivot_df.to_csv(output_directory+"/"+file+"_pivoted.csv")
-        A
